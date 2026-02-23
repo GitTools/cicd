@@ -1,0 +1,41 @@
+name: 'auth-checkout'
+description: 'Authenticate using 1Password, generate a GitHub App token, and checkout code.'
+inputs:
+  op-token:
+    description: '1Password Service Account Token'
+    required: true
+  fetch-depth:
+    description: 'Depth of git checkout fetch'
+    required: false
+    default: '0'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Load secrets from 1Password
+      id: op-load-secret
+      uses: 1password/load-secrets-action@v3
+      with:
+        export-env: false
+      env:
+        OP_SERVICE_ACCOUNT_TOKEN: ${{ inputs.op-token }}
+        gh_app_id: op://gittools/actions/gh_app_id
+        gh_app_private_key: op://gittools/actions/gh_app_private_key.pem
+
+    - name: Generate GitHub App Token
+      id: app-token
+      uses: actions/create-github-app-token@v2
+      with:
+        app-id: ${{ steps.op-load-secret.outputs.gh_app_id }}
+        private-key: ${{ steps.op-load-secret.outputs.gh_app_private_key }}
+        permission-actions: write
+        permission-contents: write
+        permission-workflows: write
+        permission-members: read
+        permission-metadata: read
+
+    - name: Checkout code
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: ${{ inputs.fetch-depth }}
+        token: ${{ steps.app-token.outputs.token }}
