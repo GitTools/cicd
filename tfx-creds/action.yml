@@ -21,4 +21,4 @@ runs:
         export-env: false
       env:
         OP_SERVICE_ACCOUNT_TOKEN: ${{ inputs.op_service_account_token }}
-        tfx_token: op://gittools/actions/tfx_token
+        tfx_token: op://gittools/ci/tfx/token

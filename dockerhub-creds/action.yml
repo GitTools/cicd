@@ -9,10 +9,10 @@ inputs:
 outputs:
   docker_username:
     description: DockerHub username
-    value: ${{ steps.load.outputs.DOCKER_USERNAME }}
+    value: ${{ steps.load.outputs.docker_username }}
   docker_password:
     description: DockerHub password
-    value: ${{ steps.load.outputs.DOCKER_PASSWORD }}
+    value: ${{ steps.load.outputs.docker_password }}
 
 runs:
   using: 'composite'
@@ -24,5 +24,5 @@ runs:
         export-env: false
       env:
         OP_SERVICE_ACCOUNT_TOKEN: ${{ inputs.op_service_account_token }}
-        DOCKER_USERNAME: op://gittools/ci/dockerhub/username
-        DOCKER_PASSWORD: op://gittools/ci/dockerhub/token
+        docker_username: op://gittools/ci/dockerhub/username
+        docker_password: op://gittools/ci/dockerhub/token
