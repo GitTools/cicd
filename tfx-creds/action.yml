@@ -1,0 +1,24 @@
+name: 'Load TFX Secrets'
+description: 'Loads TFX credentials from 1Password'
+
+inputs:
+  op_service_account_token:
+    description: '1Password service account token'
+    required: true
+
+outputs:
+  tfx_token:
+    description: TFX token
+    value: ${{ steps.op-load-secret.outputs.tfx_token }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Load secrets from 1Password
+      id: op-load-secret
+      uses: 1password/load-secrets-action@v3
+      with:
+        export-env: false
+      env:
+        OP_SERVICE_ACCOUNT_TOKEN: ${{ inputs.op_service_account_token }}
+        tfx_token: op://gittools/actions/tfx_token

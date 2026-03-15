@@ -1,0 +1,28 @@
+name: 'Load GitHub App Secrets'
+description: 'Loads GitHub App credentials from 1Password'
+
+inputs:
+  op_service_account_token:
+    description: '1Password service account token'
+    required: true
+
+outputs:
+  gh_app_id:
+    description: GitHub App ID
+    value: ${{ steps.op-load-secret.outputs.gh_app_id }}
+  gh_app_private_key:
+    description: GitHub App private key
+    value: ${{ steps.op-load-secret.outputs.gh_app_private_key }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Load secrets from 1Password
+      id: op-load-secret
+      uses: 1password/load-secrets-action@v3
+      with:
+        export-env: false
+      env:
+        OP_SERVICE_ACCOUNT_TOKEN: ${{ inputs.op_service_account_token }}
+        gh_app_id: op://gittools/actions/gh_app_id
+        gh_app_private_key: op://gittools/actions/gh_app_private_key.pem
