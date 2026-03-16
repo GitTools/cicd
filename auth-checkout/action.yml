@@ -1,7 +1,7 @@
 name: 'auth-checkout'
 description: 'Authenticate using 1Password, generate a GitHub App token, and checkout code.'
 inputs:
-  op-token:
+  op_service_account_token:
     description: '1Password Service Account Token'
     required: true
   fetch-depth:
@@ -16,7 +16,7 @@ runs:
       id: gh-app-creds
       uses: gittools/cicd/gh-app-creds@main
       with:
-        op_service_account_token: ${{ inputs.op-token }}
+        op_service_account_token: ${{ inputs.op_service_account_token }}
 
     - name: Generate GitHub App Token
       id: app-token
