@@ -1,0 +1,24 @@
+name: 'Load Chocolatey Secrets'
+description: 'Loads Chocolatey credentials from 1Password'
+
+inputs:
+  op_service_account_token:
+    description: '1Password service account token'
+    required: true
+
+outputs:
+  choco_api_key:
+    description: Chocolatey API key
+    value: ${{ steps.op-load-secret.outputs.choco_api_key }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Load secrets from 1Password
+      id: op-load-secret
+      uses: 1password/load-secrets-action@v3
+      with:
+        export-env: false
+      env:
+        OP_SERVICE_ACCOUNT_TOKEN: ${{ inputs.op_service_account_token }}
+        choco_api_key: op://gittools/ci/choco/api_key

@@ -44,6 +44,34 @@ Outputs:
 
 - `tfx_token`
 
+### nuget-creds
+
+Path: `nuget-creds`
+
+Loads NuGet API key from 1Password.
+
+Inputs:
+
+- `op_service_account_token` (required): 1Password service account token.
+
+Outputs:
+
+- `nuget_api_key`
+
+### choco-creds
+
+Path: `choco-creds`
+
+Loads Chocolatey API key from 1Password.
+
+Inputs:
+
+- `op_service_account_token` (required): 1Password service account token.
+
+Outputs:
+
+- `choco_api_key`
+
 ### dockerhub-creds
 
 Path: `dockerhub-creds`

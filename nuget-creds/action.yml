@@ -1,0 +1,24 @@
+name: 'Load NuGet Secrets'
+description: 'Loads NuGet credentials from 1Password'
+
+inputs:
+  op_service_account_token:
+    description: '1Password service account token'
+    required: true
+
+outputs:
+  nuget_api_key:
+    description: NuGet API key
+    value: ${{ steps.op-load-secret.outputs.nuget_api_key }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Load secrets from 1Password
+      id: op-load-secret
+      uses: 1password/load-secrets-action@v3
+      with:
+        export-env: false
+      env:
+        OP_SERVICE_ACCOUNT_TOKEN: ${{ inputs.op_service_account_token }}
+        nuget_api_key: op://gittools/ci/nuget/api_key

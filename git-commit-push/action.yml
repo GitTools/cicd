@@ -7,7 +7,14 @@ inputs:
 runs:
   using: 'composite'
   steps:
+    - name: Check for changes
+      if: github.event_name == 'push'
+      shell: pwsh
+      id: status
+      run: |
+        if ($null -ne (git status --porcelain)) { echo "has_changes=1"; echo "has_changes=1" >> $env:GITHUB_OUTPUT }
     - name: Commit and push changes
+      if: steps.status.outputs.has_changes == '1'
       shell: pwsh
       env:
         MESSAGE: ${{ inputs.message }}
