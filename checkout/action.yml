@@ -1,4 +1,4 @@
-name: 'auth-checkout'
+name: 'checkout'
 description: 'Authenticate using 1Password, generate a GitHub App token, and checkout code.'
 inputs:
   op_service_account_token:

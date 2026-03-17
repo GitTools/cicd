@@ -4,9 +4,9 @@ Reusable GitHub composite actions for authentication, secret loading, and git au
 
 ## Available Actions
 
-### auth-checkout
+### checkout
 
-Path: `auth-checkout`
+Path: `checkout`
 
 Authenticates via GitHub App credentials (loaded from 1Password), creates an installation token, and checks out the repository.
 
@@ -109,19 +109,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout with GitHub App auth
-        uses: gittools/cicd/auth-checkout@main
+        uses: gittools/cicd/checkout@v1
         with:
           op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 
       - name: Load TFX token
         id: tfx
-        uses: gittools/cicd/tfx-creds@main
+        uses: gittools/cicd/tfx-creds@v1
         with:
           op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 
       - name: Load DockerHub credentials
         id: dockerhub
-        uses: gittools/cicd/dockerhub-creds@main
+        uses: gittools/cicd/dockerhub-creds@v1
         with:
           op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 ```
