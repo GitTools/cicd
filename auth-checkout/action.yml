@@ -3,7 +3,7 @@ description: 'Authenticate using 1Password, generate a GitHub App token, and che
 inputs:
   op_service_account_token:
     description: '1Password Service Account Token'
-    required: true
+    required: false
   fetch-depth:
     description: 'Depth of git checkout fetch'
     required: false
@@ -13,12 +13,14 @@ runs:
   using: 'composite'
   steps:
     - name: Load GitHub App secrets
+      if: github.repository_owner == 'GitTools'
       id: gh-app-creds
-      uses: gittools/cicd/gh-app-creds@main
+      uses: gittools/cicd/gh-app-creds@v1
       with:
         op_service_account_token: ${{ inputs.op_service_account_token }}
 
     - name: Generate GitHub App Token
+      if: github.repository_owner == 'GitTools'
       id: app-token
       uses: actions/create-github-app-token@v2
       with:
@@ -26,12 +28,21 @@ runs:
         private-key: ${{ steps.gh-app-creds.outputs.gh_app_private_key }}
         permission-actions: write
         permission-contents: write
+        permission-issues: write
+        permission-pull-requests: write
         permission-workflows: write
         permission-members: read
         permission-metadata: read
 
     - name: Checkout code
+      if: github.repository_owner == 'GitTools'
       uses: actions/checkout@v6
       with:
         fetch-depth: ${{ inputs.fetch-depth }}
         token: ${{ steps.app-token.outputs.token }}
+
+    - name: Checkout code (fallback)
+      if: github.repository_owner != 'GitTools'
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: ${{ inputs.fetch-depth }}
