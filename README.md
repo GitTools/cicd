@@ -87,6 +87,20 @@ Outputs:
 - `docker_username`
 - `docker_password`
 
+### github-creds
+
+Path: `github-creds`
+
+Loads GitHub release token from 1Password.
+
+Inputs:
+
+- `op_service_account_token` (required): 1Password service account token.
+
+Outputs:
+
+- `github_release_token`
+
 ### git-commit-push
 
 Path: `git-commit-push`
@@ -122,6 +136,12 @@ jobs:
       - name: Load DockerHub credentials
         id: dockerhub
         uses: gittools/cicd/dockerhub-creds@v1
+        with:
+          op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+
+      - name: Load GitHub release token
+        id: github
+        uses: gittools/cicd/github-creds@v1
         with:
           op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 ```

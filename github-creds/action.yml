@@ -1,0 +1,24 @@
+name: 'Load GitHub Secrets'
+description: 'Loads GitHub credentials from 1Password'
+
+inputs:
+  op_service_account_token:
+    description: '1Password service account token'
+    required: true
+
+outputs:
+  github_release_token:
+    description: GitHub release token
+    value: ${{ steps.load.outputs.github_release_token }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Load secrets from 1Password
+      id: load
+      uses: 1password/load-secrets-action@v3
+      with:
+        export-env: false
+      env:
+        OP_SERVICE_ACCOUNT_TOKEN: ${{ inputs.op_service_account_token }}
+        github_release_token: op://gittools/ci/github/release_token
