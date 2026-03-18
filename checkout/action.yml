@@ -13,14 +13,14 @@ runs:
   using: 'composite'
   steps:
     - name: Load GitHub App secrets
-      if: github.repository_owner == 'GitTools'
+      if: github.repository_owner == 'GitTools' && github.event_name != 'pull_request'
       id: gh-app-creds
       uses: gittools/cicd/gh-app-creds@v1
       with:
         op_service_account_token: ${{ inputs.op_service_account_token }}
 
     - name: Generate GitHub App Token
-      if: github.repository_owner == 'GitTools'
+      if: github.repository_owner == 'GitTools' && github.event_name != 'pull_request'
       id: app-token
       uses: actions/create-github-app-token@v3
       with:
@@ -35,14 +35,14 @@ runs:
         permission-metadata: read
 
     - name: Checkout code
-      if: github.repository_owner == 'GitTools'
+      if: github.repository_owner == 'GitTools' && github.event_name != 'pull_request'
       uses: actions/checkout@v6
       with:
         fetch-depth: ${{ inputs.fetch-depth }}
         token: ${{ steps.app-token.outputs.token }}
 
     - name: Checkout code (fallback)
-      if: github.repository_owner != 'GitTools'
+      if: github.repository_owner != 'GitTools' || github.event_name == 'pull_request'
       uses: actions/checkout@v6
       with:
         fetch-depth: ${{ inputs.fetch-depth }}
