@@ -9,7 +9,7 @@ updates:
     - checkout/
     - choco-creds/
     - dockerhub-creds/
-    - gh-app-creds/
+    - github-app-creds/
     - git-commit-push/
     - nuget-creds/
     - tfx-creds/

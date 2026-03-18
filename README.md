@@ -8,16 +8,16 @@ Reusable GitHub composite actions for authentication, secret loading, and git au
 
 Path: `checkout`
 
-Authenticates via GitHub App credentials (loaded from 1Password), creates an installation token, and checks out the repository.
+Authenticates via GitHub App credentials (loaded from 1Password) when running in the GitTools org (non-PR), creates an installation token, and checks out the repository.
 
 Inputs:
 
-- `op_service_account_token` (required): 1Password service account token.
+- `op_service_account_token` (optional): 1Password service account token.
 - `fetch-depth` (optional, default `0`): Depth for `actions/checkout`.
 
-### gh-app-creds
+### github-app-creds
 
-Path: `gh-app-creds`
+Path: `github-app-creds`
 
 Loads GitHub App credentials from 1Password.
 
