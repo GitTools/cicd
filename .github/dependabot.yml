@@ -16,3 +16,8 @@ updates:
   schedule:
     interval: cron
     cronjob: "0 12 * * *"
+  groups:
+    actions:
+      patterns:
+        - "*"
+      group-by: dependency-name
