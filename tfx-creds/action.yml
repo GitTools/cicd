@@ -16,7 +16,7 @@ runs:
   steps:
     - name: Load secrets from 1Password
       id: op-load-secret
-      uses: 1password/load-secrets-action@v3
+      uses: 1password/load-secrets-action@v4
       with:
         export-env: false
       env:
