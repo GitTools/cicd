@@ -10,6 +10,9 @@ outputs:
   gh_app_id:
     description: GitHub App ID
     value: ${{ steps.op-load-secret.outputs.gh_app_id }}
+  gh_app_client_id:
+    description: GitHub App client ID
+    value: ${{ steps.op-load-secret.outputs.gh_app_client_id }}
   gh_app_private_key:
     description: GitHub App private key
     value: ${{ steps.op-load-secret.outputs.gh_app_private_key }}
@@ -25,4 +28,5 @@ runs:
       env:
         OP_SERVICE_ACCOUNT_TOKEN: ${{ inputs.op_service_account_token }}
         gh_app_id: op://gittools/ci/github_app/id
+        gh_app_client_id: op://gittools/ci/github_app/client_id
         gh_app_private_key: op://gittools/ci/github_app/private_key.pem
