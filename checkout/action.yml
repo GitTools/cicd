@@ -15,7 +15,7 @@ runs:
     - name: Load GitHub App secrets
       if: github.repository_owner == 'GitTools' && github.event_name != 'pull_request'
       id: github-app-creds
-      uses: gittools/cicd/github-app-creds@v2
+      uses: gittools/cicd/github-app-creds@v3
       with:
         op_service_account_token: ${{ inputs.op_service_account_token }}
 
