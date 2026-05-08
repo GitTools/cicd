@@ -15,7 +15,7 @@ runs:
     - name: Load GitHub App secrets
       if: github.repository_owner == 'GitTools' && github.event_name != 'pull_request'
       id: github-app-creds
-      uses: gittools/cicd/github-app-creds@v3
+      uses: gittools/cicd/github-app-creds@main
       with:
         op_service_account_token: ${{ inputs.op_service_account_token }}
 
@@ -25,6 +25,7 @@ runs:
       uses: actions/create-github-app-token@v3
       with:
         app-id: ${{ steps.github-app-creds.outputs.gh_app_id }}
+        client-id: ${{ steps.github-app-creds.outputs.gh_app_client_id }}
         private-key: ${{ steps.github-app-creds.outputs.gh_app_private_key }}
         permission-actions: write
         permission-contents: write

@@ -123,25 +123,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout with GitHub App auth
-        uses: gittools/cicd/checkout@v1
+        uses: gittools/cicd/checkout@main
         with:
           op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 
       - name: Load TFX token
         id: tfx
-        uses: gittools/cicd/tfx-creds@v1
+        uses: gittools/cicd/tfx-creds@main
         with:
           op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 
       - name: Load DockerHub credentials
         id: dockerhub
-        uses: gittools/cicd/dockerhub-creds@v1
+        uses: gittools/cicd/dockerhub-creds@main
         with:
           op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 
       - name: Load GitHub release token
         id: github
-        uses: gittools/cicd/github-creds@v1
+        uses: gittools/cicd/github-creds@main
         with:
           op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 ```
@@ -149,4 +149,4 @@ jobs:
 ## Notes
 
 - These actions depend on `1password/load-secrets-action@v3` where applicable.
-- Prefer version tags (for example `@v1`) in production workflows once releases are cut.
+- Prefer version tags (for example `@main`) in production workflows once releases are cut.
