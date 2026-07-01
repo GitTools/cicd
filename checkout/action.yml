@@ -36,13 +36,13 @@ runs:
 
     - name: Checkout code
       if: github.repository_owner == 'GitTools' && github.event_name != 'pull_request'
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         fetch-depth: ${{ inputs.fetch-depth }}
         token: ${{ steps.app-token.outputs.token }}
 
     - name: Checkout code (fallback)
       if: github.repository_owner != 'GitTools' || github.event_name == 'pull_request'
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         fetch-depth: ${{ inputs.fetch-depth }}
