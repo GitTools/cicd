@@ -105,11 +105,12 @@ Outputs:
 
 Path: `git-commit-push`
 
-Adds all changes, commits with the provided message, and force-pushes.
+Adds all changes, commits with the provided message, and pushes the commit.
 
 Inputs:
 
 - `message` (required): Commit message.
+- `force` (optional, defaults to `true`): Set to `false` to reject a push if the remote branch has advanced.
 
 ## Example Usage
 
