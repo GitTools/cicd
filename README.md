@@ -124,30 +124,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout with GitHub App auth
-        uses: gittools/cicd/checkout@main
+        uses: gittools/cicd/checkout@35132578146a11af8758159e9a9d4f69c7041297 # v6
         with:
           op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 
       - name: Load TFX token
         id: tfx
-        uses: gittools/cicd/tfx-creds@main
+        uses: gittools/cicd/tfx-creds@35132578146a11af8758159e9a9d4f69c7041297 # v6
         with:
           op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 
       - name: Load DockerHub credentials
         id: dockerhub
-        uses: gittools/cicd/dockerhub-creds@main
+        uses: gittools/cicd/dockerhub-creds@35132578146a11af8758159e9a9d4f69c7041297 # v6
         with:
           op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 
       - name: Load GitHub release token
         id: github
-        uses: gittools/cicd/github-creds@main
+        uses: gittools/cicd/github-creds@35132578146a11af8758159e9a9d4f69c7041297 # v6
         with:
           op_service_account_token: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
 ```
 
 ## Notes
 
-- These actions depend on `1password/load-secrets-action@v3` where applicable.
-- Prefer version tags (for example `@main`) in production workflows once releases are cut.
+- Credential actions load their secrets from 1Password.
+- Pin production workflows to a full commit SHA, with the matching release tag in a comment (for example `# v6`).
